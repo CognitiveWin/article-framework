@@ -4,25 +4,25 @@ This is an article about frameworks, but more importantly it intends to describe
 
 But before things get technical, it’s worth considering the more abstract notion of frameworks. Take the Collins English Dictionary definition:
 
-    A framework is a particular set of rules, ideas, or beliefs which you use in order to deal with problems or to decide what to do.
+> A framework is a particular set of rules, ideas, or beliefs which you use in order to deal with problems or to decide what to do.
 
 Frameworks can be found anywhere were complexity needs to be managed. Wikipedia’s page on Scrum begins:
 
-    Scrum is an agile framework for managing work with an emphasis on software development.
+> Scrum is an agile framework for managing work with an emphasis on software development.
 
 There is no formal definition of a framework or, it’s counterpart, the library and as a result there is discourse and debate. This article will use some broad (loose?) definitions to make sense of things.
 
-## A library:
+A library:
 
-is a mechanism allowing code to be shared in some form. This can be code or binary.
-Is usually configurable, but not necessarily extensible.
-it is acted upon by a client with control returning to the client after each call.
+- is a mechanism allowing code to be shared in some form. This can be code or binary.
+- is usually configurable, but not necessarily extensible.
+- it is acted upon by a client with control returning to the client after each call.
 
-## A framework:
+A framework:
 
-provides a skeletal implementation.
-manages control flow and that of its client.
-offers extensibility through inversion of control.
+- provides a skeletal implementation.
+- manages control flow and that of its client.
+- offers extensibility through inversion of control.
 
 Where things get gray is that the mechanism of a library can deliver a framework and “frameworks” in iOS can just be libraries.
 
@@ -34,15 +34,17 @@ A pivotal aspect of iOS development, and one familiar to most iOS developers, is
 
 Much of `UITableView`’s usage lies with just two required methods defined by the `UITableViewDataSourceDelegate` protocol:
 
-    `func tableView(UITableView, cellForRowAt: IndexPath)` asks the data source for a cell to insert in a particular location of the table view.
-    `func numberOfSections(in: UITableView)` tells the data source to return the number of rows in a given section of a table view
+`func tableView(UITableView, cellForRowAt: IndexPath)` asks the data source for a cell to insert in a particular location of the table view.
+
+`func numberOfSections(in: UITableView)` tells the data source to return the number of rows in a given section of a table view
 
 The language, taken from Apple’s documentation, is telling. The first method *asks* the client, the data source for a cell, and also *tells* the data source to return the number of rows. Control of flow is clearly with the UITableView.
 
 `UITableView`’s implementation details are hidden, including its exceptional performance, yet it is extensible by the client.
 
 (Mike Ash has an excellent pos in which he breaks down the underlying implementation from his own observations.)
-Demonstration
+
+# Demonstration
 
 To demonstrate the use of frameworks this example take a simple algorithm classifying a password into poor, weak, good and strong.
 
@@ -60,19 +62,21 @@ Two points for each aspect means the maximum password must be ten characters lon
 
 These ten points will map to classified strengths:
 
-- [0, 2) None (or, too bad for words)
-- [2, 4) Weak
-- [6, 8) Good
-- [8, 10) Strong
+- 0..<2 None (or, too bad for words)
+- 2..<4 Weak
+- 6..<8 Good
+- 8...10 Strong
 
 A library implementation of this could be simple, and is ruthlessly coded to demonstrate this.
 
-```final class PasswordStrength {
+```swift
+final class PasswordStrength {
 
   class func getStrength(password: String) -> Strength {
     // Implementation
   }
-}```
+}
+```
 
 This could really be an extension of String, it’s so simple.
 
@@ -89,26 +93,26 @@ When the strength of the password meets some criteria the user will be alerted.
 
 To implement these the UI or model will have to manage a before value and an after value to detect change in strength. It will also have to check that the strength has exceeded a threshold.
 
-The framework version looks a little different.
+The framework version looks a little different. A protocol is defined the client must implement to make best use of the framework.
 
-A protocol is defined the client must implement to make best use of the framework.
-
-```protocol PasswordStrengthDelegate: class {
+```swift
+protocol PasswordStrengthDelegate: class {
     
     func didMatchReservedWord()
     func didChangeStrength(_ strength: Strength)
     func didMeetMinimumStrength()
     func minimumStrengthForPassword() -> Strength
-}```
+}
 
-```class PasswordStrength {
+class PasswordStrength {
     
     weak var delegate: PasswordStrengthDelegate?
     var reservedWords: [String] = [] // Talk about this
     var password: String?
     
     private(set) var strength: Strength = .none
-}```
+}
+```
 
 What benefits does this provide the client?
 
@@ -138,11 +142,11 @@ Clean Architecture (from Dr Bob Martin) is a concentric, layered approach to sof
 
 A prevailing philosophy with Clean Architecture is the Dependency Rule:
 
-    dependencies points inward
+> dependencies points inward
 
 Inner circles cannot know anything about outer circles. And this is the same approach used with framework thinking.
 
-Sources
+# Sources
 
 [Investion of Control](https://en.wikipedia.org/wiki/Inversion_of_control)
 [The Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)
