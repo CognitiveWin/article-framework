@@ -148,12 +148,12 @@ Inner circles cannot know anything about outer circles. And this is the same app
 
 # Sources
 
-[Investion of Control](https://en.wikipedia.org/wiki/Inversion_of_control)
-[The Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)
-[Scrum Guides](http://www.scrumguides.org)
-[Injection](https://martinfowler.com/articles/injection.html)
-[Let's Build UITableView](https://www.mikeash.com/pyblog/friday-qa-2013-02-22-lets-build-uitableview.html)
-[Scum (software development)](https://en.wikipedia.org/wiki/Scrum_(software_development))
-[Framework](https://www.collinsdictionary.com/dictionary/english/framework)
-[UITableViewDataSource](https://developer.apple.com/documentation/uikit/uitableviewdatasource)
+1. [Investion of Control](https://en.wikipedia.org/wiki/Inversion_of_control)
+2. [The Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)
+3. [Scrum Guides](http://www.scrumguides.org)
+4. [Injection](https://martinfowler.com/articles/injection.html)
+5. [Let's Build UITableView](https://www.mikeash.com/pyblog/friday-qa-2013-02-22-lets-build-uitableview.html)
+6. [Scum (software development)](https://en.wikipedia.org/wiki/Scrum_(software_development))
+7. [Framework](https://www.collinsdictionary.com/dictionary/english/framework)
+8. [UITableViewDataSource](https://developer.apple.com/documentation/uikit/uitableviewdatasource)
 
